@@ -1,5 +1,21 @@
 #include <iostream>
 
+struct estudiante {
+	string nombre;
+	string apellidos;
+	
+};
+
+vector <estudiante> estudiantes;
+
+void registrarEstudiante();
+
+cout << "ingresar nombre";
+cin >> estudiante.nombre;
+cout << "ingresar apellido";
+cin >> estudiante.apellidos;
+
+
 int main() {
     int opcion;
     do {
