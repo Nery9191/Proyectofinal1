@@ -1,4 +1,7 @@
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 struct estudiante {
 	string nombre;
@@ -6,40 +9,51 @@ struct estudiante {
 	
 };
 
-vector <estudiante> estudiantes;
+vector<estudiante> estudiantes;
+vector<string> dp = {"Guatemala", "Peten", "Jutiapa", "Jalapa"};
+
+void mostardepartamentos() {
+	
+	for(size_t i = 0 ;i < dp.size(); i++){   
+		cout<< i + 1 <<"."<<" "<< dp[i] <<endl;
+	}
+	cout<<endl;
+}
 
 void registrarEstudiante();
 
-cout << "ingresar nombre";
-cin >> estudiante.nombre;
-cout << "ingresar apellido";
-cin >> estudiante.apellidos;
+cout<< "ingresar nombre";
+cin>> estudiante.nombre;
+cout<< "ingresar apellido";
+cin>> estudiante.apellidos;
+cout<< "intrese el departamento";
+mostrardepartamentos();
 
 
 int main() {
     int opcion;
     do {
-        std::cout << "Sistema de registro Universitario";
-        std::cout << "1. Registro de estudiantes";
-        std::cout << "2. Asignacion de cursos ";
-        std::cout << "3. Control de notas";
-        std::cout << "4. Reportes Academicos";
-        std::cout << "5. Salir";
-        std::cout << "Seleccione una opcion: ";
-        std::cin >> opcion;
+        cout << "Sistema de registro Universitario";
+        cout << "1. Registro de estudiantes";
+        cout << "2. Asignacion de cursos ";
+        cout << "3. Control de notas";
+        cout << "4. Reportes Academicos";
+        cout << "5. Salir";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
 
         switch (opcion) {
             case 1:
                 registrarEstudiante();
                 break;
             case 2:
-                asignarCurso();
+                cout << "funcion de agergar curso";
                 break;
             case 3:
-                registrarNotas();
+                cout << "funcion de registrar notas";
                 break;
             case 4:
-                generarReportes();
+                cout << "funcion de generar reportes";
                 break;
             case 5:
                 cout << "Saliendo del sistema " << endl;
