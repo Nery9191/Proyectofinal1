@@ -56,39 +56,95 @@ vector<string> Semestres = {"Semestre I","Semestre II"};
 
 
 
-void MostrarCursos(){
-	Cursos asigcurso;
-	
-	for (size_t i = 0; i < Semestres.size(); i++) {
-        cout << i + 1 << ". " << Semestres[i] << endl;
-	}
-	int SeleccionIndice;
-	cout << "Ingrese el semestre"<<endl;
-	cin >> SeleccionIndice;
-	cout << endl;
-	if (SeleccionIndice > 0 && SeleccionIndice <= Semestres.size()) {
-        asigcurso.Ciclo = Semestres[SeleccionIndice - 1];
-        }
-    
-	int Codindice;
-	cout << "Ingrese el codigo del estudiante"<< endl;
-	cin >> asigcurso.codigoest;
-	cout <<endl;
-	cout << "ingrese el curso" << endl;
-	for (size_t i = 0; i < cursos.size(); i++) {
-        cout << i + 1 << ". " << cursos[i][0] << endl;
-	}
-	cin >> Codindice;
-	
-	
-	if (Codindice > 0 && Codindice <= cursos.size()) {
-        asigcurso.nombrec = cursos[Codindice - 1][0];
-    	asigcurso.codigo = cursos[Codindice - 1][2];
-    	asigcurso.creditos = cursos[Codindice - 1][1];
-        }
-    curso.push_back(asigcurso);
 
+void AsignarCursos() {
+	cout << "\n----Lista de estudiantes registrados:----\n";
+	for (const auto& estudiante : estudiantes) {
+        cout << "Codigo: " << estudiante.codigo << " Nombre: " << estudiante.nombre << " " << estudiante.apellido << endl;
+    }
+    int codigoEstudiante;
+    cout << "Ingrese el código del estudiante: ";
+    cin >> codigoEstudiante;
+
+    bool estudianteEncontrado = false;
+    for (const auto& estudiante : estudiantes) {
+        if (estudiante.codigo == codigoEstudiante) {
+            estudianteEncontrado = true;
+            break;
+        }
+    }
+
+    if (!estudianteEncontrado) {
+        cout << "Estudiante no encontrado.\n";
+        return;
+    }
+
+    int ciclo;
+    cout << "Ingrese el semestre (1 o 2): ";
+    cin >> ciclo;
+    if (ciclo < 1 || ciclo > 2) {
+        cout << "Semestre no valido.\n";
+        return;
+    }
+
+    cout << "Ingrese el curso (numero):\n";
+    for (size_t i = 1; i < cursosSemestre[ciclo - 1].size(); ++i) { 
+        cout << i << ". " << cursosSemestre[ciclo - 1][i][0] << endl; 
+    }
+    cout << endl;
+
+    int codIndice;
+    cin >> codIndice;
+
+    if (codIndice < 1 || codIndice > (cursosSemestre[ciclo - 1].size() - 1)) {
+        cout << "Curso no valido.\n";
+        return;
+    }
+
+    string codigoCurso = cursosSemestre[ciclo - 1][codIndice][1];
+
+    
+    bool asignacionExistente = false;
+    for (auto& asignacion : asignaciones) {
+        if (asignacion.codigoEstudiante == codigoEstudiante && asignacion.codigoCurso == codigoCurso) {
+            asignacionExistente = true;
+           
+            cout << "El estudiante ya está asignado al curso " << asignacion.codigoCurso << ".\n";
+            cout << "¿Desea actualizar la asignación? (s/n): ";
+            char opcion;
+            cin >> opcion;
+
+            if (opcion == 's' || opcion == 'S') {
+               
+                cout << "Asignación actualizada correctamente.\n";
+               
+            } else {
+                cout << "No se actualizará la asignación.\n";
+            }
+            break;
+        }
+    }
+
+    
+    if (!asignacionExistente) {
+        Cursos nuevoCurso;
+        nuevoCurso.nombrec = cursosSemestre[ciclo - 1][codIndice][0];
+        nuevoCurso.codigo = codigoCurso;
+        nuevoCurso.creditos = cursosSemestre[ciclo - 1][codIndice][2];
+        nuevoCurso.semestre = ciclo;
+
+        cursos.push_back(nuevoCurso);
+
+        Asignacion nuevaAsignacion;
+        nuevaAsignacion.codigoEstudiante = codigoEstudiante;
+        nuevaAsignacion.codigoCurso = nuevoCurso.codigo;
+        asignaciones.push_back(nuevaAsignacion);
+        cout << "Curso " << nuevoCurso.nombrec << " asignado correctamente al estudiante.\n";
+    }
+
+    cout << "----------------------------------\n";
 }
+
 
 void mostrarDyM(Estudiante &nuevoEstudiante){
 	 int dptoIndice;
